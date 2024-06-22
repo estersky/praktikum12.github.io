@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css"
+    />
+    <title>List Menu</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600&display=swap");
+
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+
+      body,
+      input,
+      button {
+        font-family: sans-serif;
+        font-size: 15px;
+      }
+
+      body {
+        background-color: rgb(245, 247, 255);
+        color: rgb(90, 94, 114);
+        margin: 0;
+      }
+
+      input,
+      button {
+        border: none;
+        outline: none;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: rgb(245, 247, 255);
+        box-shadow: 0 2px 16px #14298f26;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .logo img {
+        height: 60px;
+        position: 20px;
+        padding-left: 20px;
+      }
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+        margin: 0;
+        padding: 0;
+      }
+
+      nav ul li {
+        position: relative;
+      }
+
+      nav ul li a {
+        text-decoration: none;
+        color: black;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+      }
+
+      nav ul li:hover > a {
+        background-color: rgb(182, 180, 180);
+        border-radius: 20px;
+      }
+
+      .submenu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: rgb(240, 240, 240);
+        padding: 10px;
+        border: 1px solid rgb(204, 204, 204);
+        list-style: none;
+        margin: 0;
+        min-width: 150px;
+      }
+
+      .submenu li {
+        margin-bottom: 10px;
+      }
+
+      .submenu li a {
+        padding: 5px 10px;
+        display: block;
+      }
+
+      .dropdown:hover .submenu {
+        display: block;
+      }
+
+      .header_kanan {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .list_menu {
+        text-decoration: none;
+        color: black;
+        padding-right: 20px;
+      }
+
+      .menu-samping {
+        display: none;
+      }
+
+      .btn_search {
+        background: none;
+        cursor: pointer;
+        font-size: 20px;
+        color: rgb(10, 19, 67);
+      }
+
+      .search {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        background-color: rgba(10, 19, 67, 0.1);
+        backdrop-filter: blur(24px);
+        padding: 128px 24px 0;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s;
+      }
+
+      .search_tutup {
+        position: absolute;
+        top: 32px;
+        right: 32px;
+        font-size: 24px;
+        color: rgb(10, 19, 67);
+        cursor: pointer;
+      }
+
+      .form_search {
+        display: flex;
+        align-items: center;
+        column-gap: 8px;
+        background-color: rgb(240, 242, 255);
+        box-shadow: 0 8px 32px rgba(10, 19, 67, 0.2);
+        padding-inline: 16px;
+        border-radius: 8px;
+        transform: translateY(-16px);
+        transition: transform 0.4s;
+      }
+
+      .icon_search {
+        font-size: 20px;
+        color: rgb(10, 19, 67);
+      }
+
+      .box_search {
+        width: 100%;
+        padding-block: 16px;
+        background-color: rgb(240, 242, 255);
+        color: rgb(90, 94, 114);
+      }
+
+      .menampilkan_search {
+        opacity: 1;
+        pointer-events: initial;
+      }
+
+      .menampilkan_search .form_search {
+        transform: translateY(0);
+      }
+
+      .search-menu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        background-color: #f0f2ff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .search-menu input[type="text"] {
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        margin-right: 8px;
+      }
+
+      .search-menu button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        background-color: #4caf50;
+        color: white;
+        cursor: pointer;
+      }
+      .btn_cart {
+        background: none;
+        cursor: pointer;
+        font-size: 20px;
+        color: rgb(10, 19, 67);
+      }
+
+      .btn_cart i {
+        margin-left: 8px; /* Spasi antara ikon pencarian dan ikon keranjang */
+      }
+
+      p {
+        text-align: justify;
+      }
+
+      h1 {
+        padding-top: 7rem;
+        text-align: center;
+      }
+
+      h2 {
+        color: black;
+      }
+
+      hr {
+        margin: 10px 0;
+        border: none;
+        border-top: 1px solid #ccc;
+      }
+
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(
+          4,
+          1fr
+        ); /* Mengatur grid dengan 4 kolom */
+        gap: 20px;
+        padding: 60px;
+      }
+
+      .menu-item {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: center;
+        border-radius: 5px;
+      }
+
+      .image {
+        height: 150px; /* Tinggi gambar */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden; /* Agar gambar tidak keluar dari container */
+      }
+
+      .image img {
+        max-width: 100%; /* Memastikan gambar tidak melebihi ukuran container */
+        max-height: 100%;
+        object-fit: cover; /* Memastikan gambar memenuhi container tanpa merubah proporsi */
+      }
+
+      .description {
+        font-size: 14px;
+        color: black;
+      }
+
+      .tombolKeranjang {
+        text-align: center;
+        margin: 20px;
+        padding: 10px 30px;
+        font-size: 13px;
+        background-color: #be541e;
+        color: white;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .tombolKeranjang:hover {
+        background-color: #7b2f09;
+      }
+
+      @media screen and (min-width: 576px) {
+        .search {
+          padding: 160px;
+        }
+
+        .form_search {
+          max-width: 450px;
+          margin-inline: auto;
+        }
+
+        .search_tutup {
+          width: max-content;
+          top: 80px;
+          left: 0;
+          right: 0;
+          margin-inline: auto;
+          font-size: 32px;
+        }
+        .tombolWA a {
+          color: inherit; /* Mengatur warna teks mengikuti warna elemen induknya */
+          text-decoration: none; /* Menghilangkan garis bawah */
+        }
+
+        .tombolWA {
+          display: inline-block;
+          background-color: #db7e2e;
+          color: white;
+          padding: 10px 20px;
+          text-align: center;
+          text-decoration: none;
+          border-radius: 5px;
+          margin-top: 20px;
+        }
+      }
+      .cart {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 900px;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        z-index: 1001;
+      }
+
+      .cart-header,
+      .cart-footer {
+        padding: 20px;
+        border-bottom: 1px solid #ccc;
+        text-align: center;
+      }
+
+      .cart-body {
+        padding: 20px;
+        max-height: 400px;
+        overflow-y: auto;
+      }
+
+      .cart-item {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .cart-item h4,
+      .cart-item p {
+        margin: 0;
+      }
+
+      .cart-item button {
+        margin-left: 10px;
+        padding: 5px 10px;
+        border: none;
+        background-color: #ff6347;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .cart-item button:hover {
+        background-color: #ff4500;
+      }
+
+      .cart-header i,
+      .cart-footer {
+        cursor: pointer;
+      }
+      .cart-footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        border-top: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo"><img src="logo.png" alt="logo_asteria" /></div>
+      <nav>
+        <ul>
+          <li><a href="#">Beranda</a></li>
+          <li class="dropdown">
+            <a href="#">Snack box &#9662;</a>
+            <ul class="submenu">
+              <li><a href="#">Paket Hemat</a></li>
+              <li><a href="#">Paket Reguler</a></li>
+              <li><a href="#">Paket Premium</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Testimoni</a></li>
+          <li><a href="tentangkami.html">Tentang kami</a></li>
+          <li><a href="#">Kontak kami</a></li>
+        </ul>
+      </nav>
+      <div class="header_kanan">
+        <button class="btn_search" id="btn_search">
+          <i class="ri-search-line"></i>
+        </button>
+        <button class="btn_cart" id="btn_cart" type="button">
+          <i class="ri-shopping-cart-line"></i>
+          <span id="cartCount">0</span>
+        </button>
+        <a href="listmenu.html" class="list_menu">List Menu</a>
+      </div>
+    </header>
+
+    <div class="search" id="search">
+      <form id="formPencarian" class="form_search">
+        <i class="ri-search-line icon_search"></i>
+        <input
+          type="search"
+          id="kataKunci"
+          placeholder="Cari nama kue disini"
+          class="box_search"
+        />
+        <button type="button" id="btnCari">Cari</button>
+      </form>
+      <i class="ri-close-line search_tutup" id="search_tutup"></i>
+    </div>
+
+    <div class="cart" id="cart">
+      <div class="cart-header">
+        <i class="ri-close-line" id="cart_close"></i>
+        <h2>Keranjang Belanja</h2>
+      </div>
+      <div class="cart-body" id="cart_body">
+        <!-- Daftar item keranjang akan ditambahkan di sini -->
+      </div>
+      <div class="cart-footer">
+        <h3>Total: Rp <span id="cartTotal">0</span></h3>
+
+        <button class="tombolWA">
+          <a href="https://wa.me/6285822510560">Chat admin sekarang!</a>
+        </button>
+      </div>
+    </div>
+
+    <main>
+      <h1>List Menu</h1>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div class="image">
+            <img src="foto/bingka.jpg" alt="Gambar 1" />
+          </div>
+          <div class="description">
+            <h2>Bingka</h2>
+            <h4>Harga: Rp 35.000</h4>
+            <hr />
+            <p>
+              Kue tradisional Banjar yang terbuat dari campuran tepung beras,
+              santan, gula, dan kentang yang sudah dihaluskan.
+              <br />
+              <br />
+              <br />
+            </p>
+          </div>
+          <button class="tombolKeranjang">Masukkan Keranjang</button>
+        </div>
+
+        <div class="menu-item">
+          <div class="image">
+            <img src="foto/kararaban.jpg" alt="Gambar 2" />
+          </div>
+          <div class="description">
+            <h2>Kararaban</h2>
+            <h4>Harga: Rp 15.000</h4>
+            <hr />
+            <p>
+              Kue khas Banjar yang terbuat dari tepung ketan dengan isi gula
+              merah. Kue Kararaban memiliki cita rasa manis dan berbau rempah
+              karena menggunakan adas dan kayu manis.
+            </p>
+          </div>
+          <button class="tombolKeranjang">Masukkan Keranjang</button>
+        </div>
+
+        <div class="menu-item">
+          <div class="image">
+            <img src="foto/kikicak.jpg" alt="Gambar 3" />
+          </div>
+          <div class="description">
+            <h2>Kikicak</h2>
+            <h4>Harga: Rp 20.000/pack</h4>
+
+            <hr />
+            <p>
+              Kue bulat kecil yang terbuat dari campuran tepung beras, gula
+              merah, dan sedikit air.
+              <br />
+              <br />
+              <br />
+            </p>
+          </div>
+          <button class="tombolKeranjang">Masukkan Keranjang</button>
+        </div>
+
+        <div class="menu-item">
+          <div class="image">
+            <img src="foto/apam.png" alt="Gambar 4" />
+          </div>
+          <div class="description">
+            <h2>Apam</h2>
+            <h4>Harga: Rp 2.000/pcs</h4>
+            <hr />
+            <p>
+              Kue tradisional yang terbuat dari campuran tepung beras, ragi,
+              santan, dan gula.
+              <br />
+              <br />
+              <br />
+            </p>
+          </div>
+          <button class="tombolKeranjang">Masukkan Keranjang</button>
+        </div>
+
+        <div class="menu-item">
+          <div class="image">
+            <img src="foto/cincin.jpg" alt="Gambar 5" />
+          </div>
+          <div class="description">
+            <h2>Cincin</h2>
+            <h4>Harga: Rp 1.500/pcs</h4>
+            <hr />
+            <p>
+              Kue kering khas Banjar yang berbentuk bulat dengan lubang di
+              tengahnya, mirip dengan cincin.
+              <br />
+              <br />
+              <br />
+            </p>
+          </div>
+          <button class="tombolKeranjang">Masukkan Keranjang</button>
+        </div>
+
+        <div class="menu-item">
+          <div class="image">
+            <img src="foto/cucur.jpg" alt="Gambar 6" />
+          </div>
+          <div class="description">
+            <h2>Cucur</h2>
+            <h4>Harga: Rp 2.000/pcs</h4>
+            <hr />
+            <p>
+              Kue yang goreng terbuat dari adonan tepung terigu, gula, dan air,
+              bentuknya pipih dan bundar.
+              <br />
+              <br />
+              <br />
+            </p>
+          </div>
+          <button class="tombolKeranjang">Masukkan Keranjang</button>
+        </div>
+
+        <div class="menu-item">
+          <div class="image">
+            <img src="foto/amparantatak.jpg" alt="Gambar 7" />
+          </div>
+          <div class="description">
+            <h2>Amparan Tatak</h2>
+            <h4>Harga: Rp 3.000/pcs</h4>
+            <hr />
+            <p>
+              Kue tradisional yang berbahan dasar tepung beras, santan, gula.
+              Ditengahnya terdapat potongan pisang. Kue ini didominasi oleh rasa
+              gurih dan manis.
+              <br />
+              <br />
+            </p>
+          </div>
+          <button class="tombolKeranjang">Masukkan Keranjang</button>
+        </div>
+
+        <div class="menu-item">
+          <div class="image">
+            <img src="foto/ipau.jpg" alt="Gambar 8" />
+          </div>
+          <div class="description">
+            <h2>Ipau</h2>
+            <h4>Harga: Rp 10.000</h4>
+            <hr />
+            <p>
+              Kue khas Banjar berbentuk bulat yang terbuat dari campuran tepung
+              beras, gula, dan santan. Dengan isian wortel dan daging.
+              <br />
+              <br />
+            </p>
+          </div>
+          <button class="tombolKeranjang">Masukkan Keranjang</button>
+        </div>
+
+        <div class="menu-item">
+          <div class="image">
+            <img src="foto/lam.jpg" alt="Gambar 9" />
+          </div>
+          <div class="description">
+            <h2>Lam</h2>
+            <h4>Harga: Rp 6.000/pcs</h4>
+            <hr />
+            <p>
+              Kue khas Banjar yang terbuat dari campuran tepung beras, kelapa
+              parut, gula merah, dan bahan-bahan lain yang kemudian dikukus.
+              <br />
+              <br />
+            </p>
+          </div>
+          <button class="tombolKeranjang">Masukkan Keranjang</button>
+        </div>
+
+        <div class="menu-item">
+          <div class="image">
+            <img src="foto/untuk.jpg" alt="Gambar 10" />
+          </div>
+          <div class="description">
+            <h2>Untuk (isi kacang hijau)</h2>
+            <h4>Harga: Rp 1.000/pcs</h4>
+            <hr />
+            <p>
+              Kue khas Banjar terdiri dari campuran tepung, telur, mentega dan
+              ragi. Di isi dengan kacang hijau lalu di goreng.
+              <br />
+              <br />
+              <br />
+            </p>
+          </div>
+          <button class="tombolKeranjang">Masukkan Keranjang</button>
+        </div>
+
+        <div class="menu-item">
+          <div class="image">
+            <img src="foto/gagatas.jpg" alt="Gambar 11" />
+          </div>
+          <div class="description">
+            <h2>Gagatas</h2>
+            <h4>Harga: Rp 1.000/pcs</h4>
+            <hr />
+            <p>
+              Kue khas Banjar yang terbuat dari campuran tepung terigu, gula,
+              dan telur.
+              <br />
+              <br />
+              <br />
+              <br />
+            </p>
+          </div>
+          <button class="tombolKeranjang">Masukkan Keranjang</button>
+        </div>
+
+        <div class="menu-item">
+          <div class="image">
+            <img src="foto/sarimuka.jpg" alt="Gambar 12" />
+          </div>
+          <div class="description">
+            <h2>Sarimuka Lakatan</h2>
+            <h4>Harga: Rp 4.000/pcs</h4>
+            <hr />
+            <p>
+              Kue tradisional Banjar yang terdiri dari dua lapisan, yaitu
+              lapisan bawah dari beras ketan yang dimasak dengan santan dan
+              gula, serta lapisan atas dari bahan gula merah, santan dan telur.
+            </p>
+          </div>
+          <button class="tombolKeranjang">Masukkan Keranjang</button>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const search = document.getElementById("search"),
+        searchBtn = document.getElementById("btn_search"),
+        searchClose = document.getElementById("search_tutup");
+
+      searchBtn.addEventListener("click", () => {
+        search.classList.add("menampilkan_search");
+      });
+
+      searchClose.addEventListener("click", () => {
+        search.classList.remove("menampilkan_search");
+      });
+
+      function pencarian() {
+        let kataKunci = document
+          .getElementById("kataKunci")
+          .value.toLowerCase();
+        let menuItems = document.querySelectorAll(".menu-item");
+
+        for (let menuItem of menuItems) {
+          let description = menuItem.querySelector(".description");
+          let descriptionText = description.textContent.toLowerCase();
+
+          if (descriptionText.includes(kataKunci)) {
+            menuItem.style.display = "block";
+          } else {
+            menuItem.style.display = "none";
+          }
+        }
+      }
+
+      document.getElementById("btnCari").addEventListener("click", function () {
+        pencarian();
+      });
+
+      // Variabel untuk menyimpan item dalam keranjang
+      let cart = [];
+
+      // Fungsi untuk memperbarui jumlah item di ikon keranjang
+      function updateCartCount() {
+        let cartCount = document.getElementById("cartCount");
+        if (cartCount) {
+          cartCount.textContent = cart.length;
+        } else {
+          cartCount = document.createElement("span");
+          cartCount.id = "cartCount";
+          cartCount.textContent = cart.length;
+          document.getElementById("btn_cart").appendChild(cartCount);
+        }
+      }
+
+      // Fungsi untuk memperbarui total harga di keranjang
+      function updateCartTotal() {
+        let total = cart.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
+        document.getElementById("cartTotal").textContent =
+          total.toLocaleString();
+      }
+
+      // Fungsi untuk menambahkan item ke dalam keranjang
+      function addItemToCart(itemName, itemPrice) {
+        // Periksa apakah item sudah ada di keranjang
+        let existingItem = cart.find((item) => item.name === itemName);
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          cart.push({ name: itemName, price: itemPrice, quantity: 1 });
+        }
+        updateCartCount();
+        updateCartTotal();
+        displayCartItems();
+        alert("Item telah ditambahkan ke keranjang!");
+      }
+
+      // Fungsi untuk menghapus item dari keranjang
+      function removeItemFromCart(itemName) {
+        cart = cart.filter((item) => item.name !== itemName);
+        updateCartCount();
+        updateCartTotal();
+        displayCartItems();
+      }
+
+      // Fungsi untuk mengurangi jumlah item di keranjang
+      function reduceItemQuantity(itemName) {
+        let existingItem = cart.find((item) => item.name === itemName);
+        if (existingItem) {
+          if (existingItem.quantity > 1) {
+            existingItem.quantity -= 1;
+          } else {
+            removeItemFromCart(itemName);
+          }
+        }
+        updateCartTotal();
+        displayCartItems();
+      }
+
+      // Fungsi untuk menampilkan item-item di dalam keranjang
+      // Fungsi untuk menampilkan item-item di dalam keranjang
+      function displayCartItems() {
+        let cartBody = document.getElementById("cart_body");
+        cartBody.innerHTML = ""; // Kosongkan isi keranjang
+
+        cart.forEach((item) => {
+          let cartItem = document.createElement("div");
+          cartItem.classList.add("cart-item");
+          cartItem.innerHTML = `
+      <div>
+        <h4>${item.name}</h4>
+        <p>Harga satuan: Rp ${item.price.toLocaleString()}</p>
+        <p>Jumlah: ${item.quantity}</p>
+      </div>
+      <div>
+        <button onclick="reduceItemQuantity('${item.name}')">Kurangi</button>
+
+        <button onclick="removeItemFromCart('${item.name}')">Hapus</button>
+      </div>
+    `;
+          cartBody.appendChild(cartItem);
+        });
+      }
+
+      // Event listener untuk tombol keranjang belanja
+      const cartBtn = document.getElementById("btn_cart");
+      const cartClose = document.getElementById("cart_close");
+      const cartElement = document.getElementById("cart");
+
+      cartBtn.addEventListener("click", () => {
+        cartElement.style.display = "block";
+      });
+
+      cartClose.addEventListener("click", () => {
+        cartElement.style.display = "none";
+      });
+
+      // Tambahkan event listener untuk setiap tombol "Masukkan Keranjang"
+      const tombolKeranjang = document.querySelectorAll(".tombolKeranjang");
+
+      tombolKeranjang.forEach((button) => {
+        button.addEventListener("click", (event) => {
+          // Dapatkan nama dan harga item dari elemen deskripsi
+          const menuItem = event.target.closest(".menu-item");
+          const itemName = menuItem.querySelector("h2").textContent;
+          const itemPriceText = menuItem.querySelector("h4").textContent;
+          const itemPrice = parseInt(itemPriceText.replace(/[^0-9]/g, ""), 10);
+          addItemToCart(itemName, itemPrice);
+        });
+      });
+    </script>
+  </body>
+</html>
