@@ -7,8 +7,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css"
     />
-    <link rel="stylesheet" href="style.css" />
-    <title>Search Component</title>
+    <title>Beranda</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600&display=swap");
 
@@ -36,15 +35,6 @@
         outline: none;
       }
 
-      .header {
-        background: url(foto/bgBeranda.jpg) no-repeat;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 16px 24px;
-        background-color: rgb(245, 247, 255);
-        box-shadow: 0 2px 16px #14298f26;
-      }
 
       .logo img {
         height: 60px;
@@ -224,6 +214,218 @@
       .slide.active {
         display: block;
       }
+      @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+      :root {
+        --black: #1b1722;
+        --white: #f0f0f0;
+        --box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      }
+      * {
+        font-family: "Quicksand", sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        outline: none;
+        border: none;
+        text-decoration: none;
+        text-transform: capitalize;
+        transition: 0.2s linear;
+      }
+      html {
+        font-size: 62.5%;
+        overflow-x: hidden;
+        scroll-padding-top: 7rem;
+        scroll-behavior: smooth;
+      }
+      .header {
+        height: 70px;
+        top: 0;
+        right: 0;
+        left: 0;
+        background-color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: fixed;
+        padding: 1.4rem 7%;
+        z-index: 999;
+        box-shadow: 0 2px 16px #14298f26;
+      }
+      .home {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        background: url(foto/cb2.png) no-repeat;
+        background-size: cover;
+      }
+      .home .homeContent {
+        width: 50%;
+        float: left;
+        text-align: center;
+        padding-top: 70px;
+      }
+      .home .homeContent h2 {
+        font-size: 7rem;
+        font-weight: bolder;
+        margin-bottom: 2rem;
+        line-height: 7rem;
+        color: var(--black);
+        text-shadow: var(--box-shadow);
+      }
+      .home .homeContent p {
+        font-size: 1.8rem;
+        line-height: 2;
+        margin-bottom: 2rem;
+      }
+      .home-btn {
+        height: 3rem;
+        text-align: center;
+        padding: 40px;
+      }
+      .home-btn button {
+        font-size: 1.8rem;
+        background-color: var(--black);
+        color: var(--white);
+        border-radius: 2rem;
+        padding: 0.7rem 2.4rem;
+        cursor: pointer;
+      }
+      .home-btn button:hover {
+        font-size: 2rem;
+      }
+      .beranda1 {
+        display: flex;
+        justify-content: center; /* Mengatur konten secara horizontal di tengah */
+        align-items: center; /* Mengatur konten secara vertikal di tengah */
+        background-image: url(foto/bgberanda2.png); /* Ganti 'nama_file_gambar.jpg' dengan nama file gambar yang Anda inginkan */
+        background-size: cover; /* Menyesuaikan ukuran gambar agar mengisi seluruh area background */
+        background-position: center;
+        min-height: 100vh;
+        /* Memastikan gambar berada di tengah */
+      }
+
+      .box {
+        background-color: none; /* Menambahkan latar belakang semi-transparan untuk membedakan teks */
+        margin: 40px; /* Mengatur item dalam box menjadi satu kolom */
+      }
+
+      .box p {
+        font-size: 1.8rem;
+        line-height: 2;
+        margin-right: 60px;
+        text-align: justify;
+      }
+
+      .box img {
+        margin: auto;
+        border-radius: 30px 50%;
+        width: 380px;
+        display: block; /* Mengatur agar gambar berada di tengah */
+      }
+
+      section {
+        padding: 2rem 7%;
+      }
+      .heading {
+        text-align: center;
+        font-size: 2.6rem;
+        margin-bottom: 3rem;
+        color: var(--black);
+      }
+
+      .footer {
+        background: url("foto/bgFooter.jpg");
+        color: var(--white);
+        font-size: 1.7rem;
+        line-height: 1.3;
+        color: var(--white);
+        text-align: justify;
+      }
+      .footer .box p {
+        font-size: 1.4rem;
+        text-align: justify; /* Menjaga teks rata kiri-kanan */
+        line-height: 1.5; /* Mengatur tinggi baris untuk keterbacaan */
+        /* Batasi lebar maksimum paragraf */
+      }
+
+      .box-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+        height: 210px;
+        margin-left: 60px;
+      }
+
+      .box a {
+        display: block;
+        color: var(--white);
+        padding: 1rem 0;
+      }
+
+      .box a:hover i {
+        padding-right: 2rem;
+      }
+      .footer .credit {
+        font-size: 1.2rem;
+        margin-top: 7rem;
+        padding-bottom: 2rem;
+        color: var(--white);
+        text-align: center;
+      }
+      @media (max-width: 991px) {
+        html {
+          font-size: 55%;
+        }
+        .header {
+          padding: 1.3rem 3rem;
+        }
+        .home .homeContent {
+          margin-left: 0;
+          width: 80%;
+        }
+      }
+      @media (max-width: 768px) {
+        #menu-bar {
+          display: inline-block;
+        }
+        .header .navbar {
+          position: absolute;
+          top: 100%;
+          right: -100%;
+          width: 25rem;
+          background-color: var(--white);
+          height: 80vh;
+        }
+        .header .navbar.active {
+          right: 0;
+        }
+        .header .navbar a {
+          display: block;
+          font-size: 2rem;
+          color: black;
+          margin: 1.5rem;
+        }
+
+        .home .homeContent {
+          margin-left: 0;
+          width: 90%;
+        }
+      }
+
+      @media (max-width: 600px) {
+        html {
+          font-size: 50%;
+        }
+      }
+
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
     </style>
   </head>
   <body>
@@ -272,20 +474,20 @@
          Nikmati Keunikan rasa kue Khas Kalimantan Selatan
         </p>
         <div class="home-btn">
-          <a href="#"><button>Lihat Beranda</button></a>
+          <button onclick="scrollToSection('beranda1')">Lihat Beranda</button>
         </div>
       </div>
     </section>
-    <section class="beranda1">
+    <section class="beranda1" id="beranda1">
       <div class="box">
         <p>Apakah Anda rindu dengan cita rasa autentik kue tradisional 
           dari Kalimantan Selatan? Atau mungkin Anda ingin mencoba 
           sesuatu yang baru dan unik? Di KueKalsel.com, kami menghadirkan 
           beragam kue khas Kalimantan Selatan yang siap memanjakan lidah Anda.
 </p>
-      <div class="home-btn">
-        <a href="#"><button>Cek Promo</button></a>
-      </div>
+        <div class="home-btn">
+          <button onclick="scrollToSection('home')">Cek Promo</button>
+        </div>
       </div>
       <div class="box">
         <img src="ipau.jpe" alt="foto kue ipau">
@@ -294,11 +496,8 @@
     </section>
       <footer class="footer" id="contact">
         <div class="box-container">
-            <div class="mainBox">
-                <div class="logo">
-                    <a href="#"><img src="logo2.png" alt=""></a>    
-                </div>
-                <p>Wadai Asteria adalah toko kue yang berdiri sejak 2023 di Banjarmasin
+            <div class="box">
+            <p>Wadai Asteria adalah toko kue yang berdiri sejak 2023 di Banjarmasin
             yang menyediakan berbagai macam kue khas Kalimantan Selatan yang
             berkualitas dengan harga bersaing.</p>
             </div>
@@ -357,6 +556,20 @@
         setTimeout(showSlides, 2000); // Change image every 2 seconds
       }
       showSlides();
-    </script>
+      function scrollToSection(sectionId) {
+        document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Optional: Scrolling otomatis setiap beberapa detik (mirip slideshow)
+      let currentSectionIndex = 0;
+      const sections = document.querySelectorAll('section');
+  
+      function autoScrollSections() {
+        currentSectionIndex = (currentSectionIndex + 1) % sections.length;
+        sections[currentSectionIndex].scrollIntoView({ behavior: 'smooth' });
+      }
+  
+      setInterval(autoScrollSections, 5000); // Ganti section setiap 5 detik
+   </script>
   </body>
 </html>
